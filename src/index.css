@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "DM Sans", sans-serif;
+  --color-brand-50: #effaf7;
+  --color-brand-100: #d4f1ea;
+  --color-brand-500: #14937f;
+  --color-brand-600: #0f7a69;
+  --color-brand-700: #0d6254;
+  --color-brand-900: #0a3a33;
+  --color-paper: #f6f5f0;
+  --color-ink: #12231f;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+@layer components {
+  .card { @apply rounded-2xl border border-black/5 bg-white p-5 shadow-sm; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
+  .btn-ghost { @apply btn border border-black/10 bg-white text-ink hover:bg-black/5; }
+  .btn-danger { @apply btn bg-rose-600 text-white hover:bg-rose-700; }
+  .input { @apply w-full rounded-xl border border-black/10 bg-white px-3.5 py-2.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20; }
+  .label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-black/50; }
+  .th { @apply px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-black/50; }
+  .td { @apply px-3 py-2.5 text-sm; }
+}
