@@ -1,0 +1,18 @@
+{
+  "name": "attendhub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AttendHub — Classroom Attendance & Timed Test Management Platform",
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "build:frontend": "npm --prefix frontend install && npm --prefix frontend run build",
+    "build": "npm --prefix frontend install && npm --prefix frontend run build && npm --prefix backend install --omit=dev",
+    "start": "node backend/server.js",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "seed": "npm --prefix backend run seed"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

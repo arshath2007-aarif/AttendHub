@@ -24,6 +24,7 @@ create table users (
   email text unique not null,
   full_name text not null,
   role user_role not null default 'student',
+  -- TODO: If accounts can be disabled, add an is_active boolean here.
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -36,6 +37,7 @@ create table class_sections (
   updated_at timestamptz not null default now(),
   unique (name, year)
 );
+-- TODO: Add teacher/section assignment table(s) here if teachers should only access assigned classes.
 
 create table students (
   id uuid primary key default gen_random_uuid(),
@@ -43,6 +45,7 @@ create table students (
   roll_number text unique not null,
   section_id uuid not null references class_sections(id),
   is_cr boolean not null default false,
+  -- TODO: Add enrollment status and, if needed, enrollment/withdrawal dates here.
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -61,6 +64,7 @@ create table subjects (
   code text unique not null,          -- e.g. "CS301"
   name text not null,                 -- e.g. "Java"
   teacher_id uuid references teachers(id),
+  -- TODO: If subjects can run for multiple sections, replace/reinforce teacher_id with assignment table(s).
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -76,6 +80,7 @@ create table class_sessions (
   start_time timestamptz not null default now(),
   expiry_time timestamptz not null,
   status session_status not null default 'active',
+  -- TODO: If sessions need cancellation or staff edits, add the required audit/cancellation fields here.
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -92,6 +97,7 @@ create table attendance (
   attendance_date date not null,
   marked_time timestamptz not null default now(),
   status attendance_status not null default 'present',
+  -- TODO: If staff can correct attendance, add corrected_by/corrected_at/reason fields and enforce edits in backend.
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (session_id, student_id)     -- blocks duplicate attendance at DB level
@@ -121,6 +127,7 @@ create index idx_tests_subject on tests(subject_id);
 create table questions (
   id uuid primary key default gen_random_uuid(),
   test_id uuid not null references tests(id) on delete cascade,
+  -- TODO: Keep question_type in sync with question types actually implemented in backend grading and frontend UI.
   type question_type not null default 'mcq',
   question_text text not null,
   options jsonb,                      -- ["A","B","C","D"] for MCQ

@@ -1,0 +1,26 @@
+# Render Blueprint Specification for AttendHub
+# Learn more: https://render.com/docs/blueprint-spec
+
+services:
+  # Option A: Full-stack unified web service (Frontend + Backend on single instance)
+  - type: web
+    name: attendhub
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SERVE_FRONTEND
+        value: "true"
+      - key: TZ_NAME
+        value: Asia/Kolkata
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: CLIENT_URL
+        value: "*"
